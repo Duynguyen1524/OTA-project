@@ -27,7 +27,7 @@ The ESP32 receives a firmware image over Wi‑Fi and streams it to the STM32 boo
 ├── flash.c/.h       # Flash page ops, CRC, OTA command handler
 ├── README.md        # This file
 ```
-> If you add the ESP32 sketch or Python sender later, place them under `tools/esp32/` and `tools/host/` respectively.
+
 
 ---
 
