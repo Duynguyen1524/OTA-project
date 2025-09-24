@@ -78,27 +78,7 @@ Optional:
 
 ---
 
-## 🧵 Protocol (default values)
 
-- **Baud**: 115200 8-N-1  
-- **Chunk size**: 512 bytes payload (tune with `FLASH_CHUNK_SZ`)
-- **CRC**: CRC-32 (polynomial 0x04C11DB7) per chunk
-- **Image hash**: CRC-32 or (optionally) SHA-256 if you enable it
-
-Message frames (little-endian):
-```
-| SOF 0x55AA | CMD (1B) | SEQ (2B) | LEN (2B) | PAYLOAD (LEN) | CRC32 (4B) |
-```
-
-**Commands**
-- `0x01 HELLO` → reply: version, page size
-- `0x02 BEGIN` (total_size, image_crc)
-- `0x03 DATA`  (offset, bytes…)
-- `0x04 END`
-- `0x05 COMMIT`
-- `0x06 ABORT`
-
----
 
 ## 🧰 Build & flash (STM32)
 
