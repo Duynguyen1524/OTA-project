@@ -2,7 +2,7 @@
 
 Firmware **Over-The-Air (OTA)** update for **STM32F1** (e.g., F103C8 “Blue Pill”) using an **ESP32** as the wireless bridge.  
 The ESP32 receives a firmware image over Wi‑Fi and streams it to the STM32 bootloader/runtime over UART; the STM32 writes it to flash and swaps to the new image safely.
-
+( this project is not finished this is the main idea)
 ---
 
 ## ✨ Features
