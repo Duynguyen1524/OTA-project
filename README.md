@@ -2,7 +2,7 @@
 
 Firmware **Over-The-Air (OTA)** update for **STM32F1** (e.g., F103C8 “Blue Pill”) using an **ESP32** as the wireless bridge.  
 The ESP32 receives a firmware image over Wi‑Fi and streams it to the STM32 bootloader/runtime over UART; the STM32 writes it to flash and swaps to the new image safely.
-( this project is not finished this is the main idea)
+
 ---
 
 ## ✨ Features
@@ -11,23 +11,9 @@ The ESP32 receives a firmware image over Wi‑Fi and streams it to the STM32 boo
 - Chunked transfer with CRC verification per block and final image hash
 - Flash erase/write with wear-safe page handling
 - Minimal RTOS-style kernel (cooperative) for tasks/timers (`osKernel.*`, `Os.s`)
-- Lightweight UART driver (`uart.*`) with ring buffer
+- Lightweight UART driver (`uart.*`) with ring buffer (I will optimize this later by changing it to SPI, I2C)
 - Simple command protocol (`flash.*` handles parse + program)
 - Rollback on verification failure (keeps previous image intact)
-
----
-
-## 📂 Repository layout
-
-```
-.
-├── Os.s             # Context switch / minimal scheduler primitives (ARM asm)
-├── osKernel.c/.h    # Tiny cooperative "OS" (tasks, delays)
-├── uart.c/.h        # UART init, IRQ, RX/TX ring buffers
-├── flash.c/.h       # Flash page ops, CRC, OTA command handler
-├── README.md        # This file
-```
-
 
 ---
 
@@ -46,10 +32,6 @@ The ESP32 receives a firmware image over Wi‑Fi and streams it to the STM32 boo
 | GND        | GND               | Common ground |
 | 3V3        | 3V3               | Shared 3.3 V supply |
 
-Optional:
-- Boot0 pin accessible (if you use ST ROM bootloader path)
-- A status LED on PC13 for update progress
-
 ---
 
 ## 🧱 Software requirements
@@ -64,12 +46,7 @@ Optional:
 
 ```
 [Host PC] --Wi‑Fi TCP--> [ESP32] --UART--> [STM32F1]
-                                  |
-                                  | 1) HELLO → capabilities
-                                  | 2) BEGIN  → image size, hash
-                                  | 3) DATA   → N x {seq, payload, CRC}
-                                  | 4) END    → final hash verify
-                                  | 5) COMMIT → swap/jump
+                                 
 ```
 
 - STM32 accumulates chunks, CRC-checks each, writes to flash pages.
