@@ -83,7 +83,6 @@ Flash with OpenOCD or ST-Link:
 openocd -f interface/stlink.cfg -f target/stm32f1x.cfg -c 'program app.hex verify reset exit'
 ```
 
----
 
 ## 📡 ESP32 bridge
 Underconstruction 
@@ -92,17 +91,21 @@ Underconstruction
 
 ## ▶️ Running an OTA update
 
-1. Power both boards; ensure ESP32 ↔ STM32 UART is connected.
-2. Start the ESP32 bridge (note its IP).
-3. From your PC, run a sender script to push `app.bin`:
+1. Power both boards; ensure ESP32 ↔ STM32 UART is connected.**
+2. Start the ESP32 bridge (note its IP).**
+3. From your PC, run a sender script to push app to ESP **
+4. ESP should transfer it to STM board via UART.
+5. UART takes the new program. Flash it to its memory, reset and run the program.
 
-```bash
-python tools/host/send_ota.py --ip 192.168.4.1 --port 8080 app.bin
-```
-
-**What you should see**
-- Progress % on the host.
-- STM32 printing states over UART (if `DEBUG_UART` enabled).
-- Final `OK` then auto-reboot into the new app.
-
----
+## Progress of this project
+I am still working on the project.
+#Completed
+Base bootloader structure
+Minimal task scheduler (osKernel)
+UART RX interrupt + ring buffer
+Flash erase/write with alignment safety
+Jumping from bootloader to new app
+#In Progress (current)
+Finalizing flash layout for dual-slot upgrades
+Adding ESP32 Wi-Fi → TCP → UART bridge
+CRC verification
