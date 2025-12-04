@@ -99,13 +99,13 @@ Underconstruction
 
 ## Progress of this project
 I am still working on the project.
-# Completed
+### Completed
 Base bootloader structure
 Minimal task scheduler (osKernel)
 UART RX interrupt + ring buffer
 Flash erase/write with alignment safety
 Jumping from bootloader to new app
-# In Progress (current)
+### In Progress (current)
 Finalizing flash layout for dual-slot upgrades
 Adding ESP32 Wi-Fi → TCP → UART bridge
 CRC verification
